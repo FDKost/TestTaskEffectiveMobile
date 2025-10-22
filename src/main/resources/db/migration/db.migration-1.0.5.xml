@@ -1,0 +1,84 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+        http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="1" author="FDKost">
+        <sql>
+            CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+        </sql>
+    </changeSet>
+
+    <changeSet id="2" author="FDKost">
+        <createTable tableName="owner">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="username" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role" type="text" defaultValue="USER"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="3" author="FDKost">
+        <createTable tableName="card">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="card_number" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="owner_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="expiry_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amount" type="decimal"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="4" author="FDKost">
+        <createTable tableName="status">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="status_name" type="text">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="5" author="FDKost">
+        <createTable tableName="card_status_request">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="card_id" type="uuid">
+                <constraints nullable="false" foreignKeyName="fk_request_card" references="card(id)"/>
+            </column>
+            <column name="owner_id" type="uuid">
+                <constraints nullable="false" foreignKeyName="fk_request_owner" references="owner(id)"/>
+            </column>
+            <column name="requested_status_id" type="uuid">
+                <constraints nullable="false" foreignKeyName="fk_request_status" references="status(id)"/>
+            </column>
+            <column name="state" type="text" defaultValue="NEW">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="timestamp" defaultValueDate="NOW()">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

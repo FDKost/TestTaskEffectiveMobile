@@ -1,0 +1,32 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+        http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="5" author="FDKost">
+        <addForeignKeyConstraint
+                baseTableName="card"
+                baseColumnNames="owner_id"
+                constraintName="fk_card_owner"
+                referencedTableName="owner"
+                referencedColumnNames="id"
+                deferrable="false"
+                initiallyDeferred="false"
+                onDelete="CASCADE"/>
+    </changeSet>
+
+    <changeSet id="6" author="FDKost">
+        <addForeignKeyConstraint
+                baseTableName="card"
+                baseColumnNames="status_id"
+                constraintName="fk_card_status"
+                referencedTableName="status"
+                referencedColumnNames="id"
+                deferrable="false"
+                initiallyDeferred="false"
+                onDelete="SET NULL"/>
+    </changeSet>
+
+</databaseChangeLog>

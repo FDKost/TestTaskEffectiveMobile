@@ -1,0 +1,17 @@
+spring:
+  liquibase:
+    change-log: classpath:/db/migration/db.migration-master.xml
+    default-schema: public
+  datasource:
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${DB_PORT}:5432/bankRESTTestTask
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  application:
+    name: Bank_REST_Test_Task
+  jwt:
+    secretToken: ${JWT_SECRET_TOKEN:123}
+    expTime: ${EXP_TIME:36000}

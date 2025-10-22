@@ -1,0 +1,21 @@
+services:
+  db:
+    image: postgres:14
+    restart: always
+    environment:
+      POSTGRES_DB: bankRESTTestTask
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - bankresttask-db:/var/lib/postgres/data
+    ports:
+      - '127.0.0.1:5432:5432'
+
+    networks:
+      - bankresttesttask
+
+volumes:
+  bankresttask-db:
+
+networks:
+  bankresttesttask:

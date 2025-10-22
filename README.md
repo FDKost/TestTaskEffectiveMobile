@@ -8,13 +8,13 @@
 ```
 $git clone https://github.com/FDKost/TestTaskEffectiveMobile
 ```
-2. Создайте **postgresql** бд с именем bankRESTTestTask;
+2. Зайдите в docker-compose.yaml и запустите контейнер с бд;
+3. Создайте **postgresql** бд с именем bankRESTTestTask в ранее запущенном docker контейнере;
 
 ```postgresql
 CREATE DATABASE bankRESTTestTask;
 ```
 
-3. Зайдите в docker-compose.yaml и запустите контейнер с бд;
 4. Запустите основное приложение;
 5. Перейдите на **http://localhost:8080/swagger-ui/index.html#/**
 

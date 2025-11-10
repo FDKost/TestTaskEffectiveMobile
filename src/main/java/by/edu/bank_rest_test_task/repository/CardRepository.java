@@ -6,12 +6,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+import java.util.List;
 import java.util.UUID;
 
 @Repository
 public interface CardRepository extends JpaRepository<CardEntity, UUID> {
-    Optional<CardEntity> findAllByOwnerOwnerId(UUID id);
+    List<CardEntity> findAllByOwnerOwnerId(UUID id);
 
     Page<CardEntity> findAllByOwnerOwnerId(UUID id, Pageable pageable);
 }

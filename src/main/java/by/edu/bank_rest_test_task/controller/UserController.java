@@ -6,6 +6,7 @@ import by.edu.bank_rest_test_task.entity.CardStatusRequestEntity;
 import by.edu.bank_rest_test_task.exception.RequestIOException;
 import by.edu.bank_rest_test_task.service.owner.OwnerService;
 import by.edu.bank_rest_test_task.service.request.CardStatusRequestService;
+import by.edu.bank_rest_test_task.service.userdetails.CustomUserDetails;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -35,7 +36,7 @@ public class UserController {
     @Transactional
     @PostMapping("/create")
     @PreAuthorize("hasRole('USER')")
-    public CardStatusRequestEntity createRequest(@AuthenticationPrincipal UserDetails user,
+    public CardStatusRequestEntity createRequest(@AuthenticationPrincipal CustomUserDetails user,
                                                  @RequestBody CardStatusRequestCreateDTO dto)
             throws RequestIOException {
         Optional<OwnerReadDTO> ownerDto = ownerService.findByUsername(user.getUsername());

@@ -29,7 +29,8 @@ public class CardServiceImpl implements CardService {
     @Override
     public Optional<CardReadDTO> findById(UUID id) {
         return cardRepository.findById(id)
-                .map(cardReadMapper::map);
+                .map(cardReadMapper::map)
+                .map(this::maskCardDto);
     }
 
     @Override

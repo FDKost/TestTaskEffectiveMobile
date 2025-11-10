@@ -2,17 +2,19 @@ package by.edu.bank_rest_test_task.controller;
 
 import by.edu.bank_rest_test_task.dto.card.CardCreateEditDTO;
 import by.edu.bank_rest_test_task.dto.card.CardReadDTO;
+import by.edu.bank_rest_test_task.service.userdetails.CustomUserDetails;
 import by.edu.bank_rest_test_task.exception.CardIOException;
 import by.edu.bank_rest_test_task.service.card.CardService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -22,6 +24,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Tag(name = "card", description = "Операции производимые над картами")
 @SecurityRequirement(name = "bearerAuth")
+@Slf4j
 public class CardController {
     private final CardService cardService;
 
@@ -98,12 +101,18 @@ public class CardController {
             description = "Возвращает баланс карты по uuid самой карты")
     @GetMapping("/get/card/balance/{cardId}")
     @PreAuthorize("hasRole('USER')")
-    public BigDecimal getCardBalance(@PathVariable UUID cardId) throws CardIOException {
+    public String getCardBalance(@PathVariable UUID cardId,
+                                     @AuthenticationPrincipal CustomUserDetails userDetails) throws CardIOException {
         Optional<CardReadDTO> cardDto = cardService.findById(cardId);
-        if (cardDto.isPresent()) {
-            return cardDto.get().amount();
+        List<CardReadDTO> possibleCards = cardService.findAllByOwner(userDetails.getId());
+        if (cardDto.isPresent() && possibleCards.contains(cardDto.get())) {
+            return cardDto.get().amount().toString();
+        } else if (cardDto.isPresent() && !possibleCards.contains(cardDto.get())) {
+            log.warn("There is no such card for current user");
+            return "There is no such card for current user";
         } else {
-            throw new CardIOException("Card is not present");
+            log.warn("Card is not present");
+            return "Card is not present";
         }
     }
 

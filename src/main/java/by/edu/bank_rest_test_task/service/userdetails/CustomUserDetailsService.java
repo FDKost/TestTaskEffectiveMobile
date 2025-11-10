@@ -1,8 +1,7 @@
-package by.edu.bank_rest_test_task.security;
+package by.edu.bank_rest_test_task.service.userdetails;
 
 import by.edu.bank_rest_test_task.repository.OwnerRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,7 +19,8 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return ownerRepository.findByUsername(username)
-                .map(user -> new User(
+                .map(user -> new CustomUserDetails(
+                        user.getOwnerId(),
                         user.getUsername(),
                         user.getPassword(),
                         Collections.singleton(user.getRole()
@@ -30,4 +30,5 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 
     }
+
 }

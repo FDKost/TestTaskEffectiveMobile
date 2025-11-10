@@ -2,15 +2,14 @@ package by.edu.bank_rest_test_task.entity;
 
 import by.edu.bank_rest_test_task.util.Role;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import java.util.UUID;
 
 @Entity
 @Table(name = "owner")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class OwnerEntity {

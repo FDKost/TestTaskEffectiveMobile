@@ -2,16 +2,15 @@ package by.edu.bank_rest_test_task.entity;
 
 import by.edu.bank_rest_test_task.util.RequestState;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
 @Table(name = "card_status_request")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class CardStatusRequestEntity {

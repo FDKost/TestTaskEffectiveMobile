@@ -15,3 +15,5 @@ spring:
   jwt:
     secretToken: ${JWT_SECRET_TOKEN:123}
     expTime: ${EXP_TIME:36000}
+server:
+  port: 8080

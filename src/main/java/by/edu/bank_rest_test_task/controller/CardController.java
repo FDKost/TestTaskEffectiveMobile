@@ -102,7 +102,7 @@ public class CardController {
     @GetMapping("/get/card/balance/{cardId}")
     @PreAuthorize("hasRole('USER')")
     public String getCardBalance(@PathVariable UUID cardId,
-                                     @AuthenticationPrincipal CustomUserDetails userDetails) throws CardIOException {
+                                 @AuthenticationPrincipal CustomUserDetails userDetails) throws CardIOException {
         Optional<CardReadDTO> cardDto = cardService.findById(cardId);
         List<CardReadDTO> possibleCards = cardService.findAllByOwner(userDetails.getId());
         if (cardDto.isPresent() && possibleCards.contains(cardDto.get())) {

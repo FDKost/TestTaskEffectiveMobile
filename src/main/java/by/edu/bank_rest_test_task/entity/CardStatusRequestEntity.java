@@ -2,7 +2,10 @@ package by.edu.bank_rest_test_task.entity;
 
 import by.edu.bank_rest_test_task.util.RequestState;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

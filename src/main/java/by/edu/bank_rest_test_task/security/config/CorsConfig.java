@@ -12,13 +12,14 @@ import java.util.Arrays;
 public class CorsConfig {
     @Value("${server.port}")
     private String allowedOrigin;
+
     @Bean
     public UrlBasedCorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowCredentials(true);
         configuration.addAllowedOrigin(allowedOrigin);
         configuration.addAllowedHeader("*");
-        configuration.addAllowedMethod(Arrays.asList("GET","POST","PUT","DELETE","OPTIONS").toString());
+        configuration.addAllowedMethod(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS").toString());
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
